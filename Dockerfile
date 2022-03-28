@@ -92,6 +92,9 @@ RUN apt-get update \
   gifsicle && apt-get clean && rm -rf /var/lib/apt/lists/* &&  rm -rf /tmp/library-scripts \
   apt-get purge
 
+RUN PHP_OPENSSL=yes pecl install ev \
+    && docker-php-ext-enable ev
+
 RUN apt-get update
 RUN curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 RUN apt-get update
@@ -116,20 +119,24 @@ RUN docker-php-ext-install -j "$(nproc)" \
   pcntl \
   mysqli \
   opcache \
-  zip
+  zip \
+  calendar
 
 RUN printf "\n" | printf "\n" | pecl install redis \
   ; \
   pecl install imagick \
   apcu \
-  mailparse
+  mailparse \
+  mongodb \
+  openswoole
 
 RUN docker-php-ext-enable imagick \
   bcmath \
   redis \
   opcache \
   mailparse \
-  apcu
+  apcu \
+  mongodb
 
 # Enable apache modules
 RUN a2enmod setenvif \
@@ -142,6 +149,8 @@ RUN a2enmod setenvif \
   ext_filter
 
 COPY php/opcache.ini /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+COPY php/openswoole.ini /usr/local/etc/php/conf.d/openswoole.ini
+COPY php/php81-recommended.ini /usr/local/etc/php/conf.d/php81-recommended.ini
 
 # set recommended PHP.ini settings
 RUN { \
@@ -150,7 +159,7 @@ RUN { \
   	echo 'post_max_size=4M'; \
   	echo 'max_execution_time=999999'; \
   	echo 'memory_limit=512M'; \
-  } > /usr/local/etc/php/conf.d/php74-recommended.ini
+  } > /usr/local/etc/php/conf.d/php81-recommended.ini
 
 COPY apache/optimize.conf /etc/apache2/conf-available/optimize.conf
 
