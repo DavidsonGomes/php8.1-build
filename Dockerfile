@@ -158,7 +158,7 @@ RUN { \
   	echo 'upload_max_filesize=4M'; \
   	echo 'post_max_size=4M'; \
   	echo 'max_execution_time=999999'; \
-  	echo 'memory_limit=512M'; \
+  	echo 'memory_limit=1024M'; \
   } > /usr/local/etc/php/conf.d/php81-recommended.ini
 
 COPY apache/optimize.conf /etc/apache2/conf-available/optimize.conf
