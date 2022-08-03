@@ -72,6 +72,7 @@ RUN apt-get update \
   libpangocairo-1.0-0 \
   libstdc++6 \
   libx11-6 \
+  libyaml-dev \
   libx11-xcb1 \
   libxcb1 \
   libxcomposite1 \
@@ -128,6 +129,7 @@ RUN printf "\n" | printf "\n" | pecl install redis \
   apcu \
   mailparse \
   mongodb \
+  yaml \
   openswoole
 
 RUN docker-php-ext-enable imagick \
@@ -136,6 +138,7 @@ RUN docker-php-ext-enable imagick \
   opcache \
   mailparse \
   apcu \
+  yaml \
   mongodb
 
 # Enable apache modules
