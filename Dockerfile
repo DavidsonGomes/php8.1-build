@@ -30,10 +30,7 @@ RUN apt-get update \
   zlib1g-dev \
   libjpeg-dev \
   libmagickwand-dev \
-  libpng-dev \
-  libgif-dev \
   inetutils-ping \
-  libtiff-dev \
   libz-dev \
   libpq-dev \
   libcurl4-openssl-dev \
@@ -44,18 +41,8 @@ RUN apt-get update \
   sysvbanner \
   libzip-dev \
   libjpeg62-turbo-dev \
-  libfreetype6-dev \
   imagemagick \
-  ghostscript \
-  jpegoptim \
-  optipng \
-  pngquant \
-  libnss3-dev \
   ca-certificates \
-  fonts-liberation \
-  libasound2 \
-  libatk-bridge2.0-0 \
-  libatk1.0-0 \
   libc6 \
   libcairo2 \
   libcups2 \
@@ -68,21 +55,9 @@ RUN apt-get update \
   libgtk-3-0 \
   libnspr4 \
   libnss3 \
-  libpango-1.0-0 \
-  libpangocairo-1.0-0 \
   libstdc++6 \
   libx11-6 \
   libyaml-dev \
-  libx11-xcb1 \
-  libxcb1 \
-  libxcomposite1 \
-  libxcursor1 \
-  libxdamage1 \
-  libxext6 \
-  libxfixes3 \
-  libxi6 \
-  libxrandr2 \
-  libxrender1 \
   libxss1 \
   libxtst6 \
   lsb-release \
@@ -102,9 +77,9 @@ RUN apt-get update
 RUN apt-get install -y nodejs
 
 # Installing Apache mod-pagespeed
-RUN curl -o /home/mod-pagespeed-beta_current_amd64.deb https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-beta_current_amd64.deb
-RUN dpkg -i /home/mod-pagespeed-*.deb
-RUN apt-get -f install
+#RUN curl -o /home/mod-pagespeed-beta_current_amd64.deb https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-beta_current_amd64.deb
+#RUN dpkg -i /home/mod-pagespeed-*.deb
+#RUN apt-get -f install
 
 RUN	docker-php-ext-configure gd --with-freetype --with-jpeg
 
