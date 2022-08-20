@@ -57,7 +57,6 @@ RUN apt-get update \
   libnss3 \
   libstdc++6 \
   libx11-6 \
-  libyaml-dev \
   libxss1 \
   libxtst6 \
   lsb-release \
@@ -104,7 +103,6 @@ RUN printf "\n" | printf "\n" | pecl install redis \
   apcu \
   mailparse \
   mongodb \
-  yaml \
   openswoole
 
 RUN docker-php-ext-enable imagick \
@@ -113,7 +111,6 @@ RUN docker-php-ext-enable imagick \
   opcache \
   mailparse \
   apcu \
-  yaml \
   mongodb
 
 # Enable apache modules
@@ -127,7 +124,9 @@ RUN a2enmod setenvif \
   ext_filter
 
 COPY php/opcache.ini /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+
 COPY php/openswoole.ini /usr/local/etc/php/conf.d/openswoole.ini
+
 COPY php/php81-recommended.ini /usr/local/etc/php/conf.d/php81-recommended.ini
 
 COPY apache/optimize.conf /etc/apache2/conf-available/optimize.conf
@@ -138,6 +137,6 @@ RUN curl -s https://getcomposer.org/installer | php
 
 RUN mv composer.phar /usr/local/bin/composer
 
-RUN composer global require laravel/installer
+#RUN composer global require laravel/installer
 
 RUN export PATH="$PATH:$HOME/.composer/vendor/bin"
