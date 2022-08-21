@@ -17,6 +17,7 @@ RUN apt-get update \
   dnsutils \
   wget \
   memcached \
+  libmemcached-dev \
   libmemcached-tools \
   gnupg \
   libpcre3-dev \
@@ -102,6 +103,7 @@ RUN printf "\n" | printf "\n" | pecl install redis \
   pecl install imagick \
   apcu \
   mailparse \
+  memcached \
   mongodb \
   openswoole
 
@@ -110,6 +112,7 @@ RUN docker-php-ext-enable imagick \
   redis \
   opcache \
   mailparse \
+  memcached \
   apcu \
   mongodb
 
