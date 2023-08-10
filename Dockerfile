@@ -1,6 +1,12 @@
 FROM php:8.1-apache
 
-EXPOSE 80
+USER root
+
+WORKDIR /var/www/html
+
+RUN apt-get update
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt-get install -y nodejs
 
 ENV COMPOSER_MEMORY_LIMIT -1
 
@@ -71,11 +77,6 @@ RUN apt-get update \
 RUN PHP_OPENSSL=yes pecl install ev \
     && docker-php-ext-enable ev
 
-RUN apt-get update
-RUN curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-RUN apt-get update
-RUN apt-get install -y nodejs
-
 # Installing Apache mod-pagespeed
 #RUN curl -o /home/mod-pagespeed-beta_current_amd64.deb https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-beta_current_amd64.deb
 #RUN dpkg -i /home/mod-pagespeed-*.deb
@@ -136,10 +137,11 @@ COPY apache/optimize.conf /etc/apache2/conf-available/optimize.conf
 
 RUN a2enconf optimize
 
-RUN curl -s https://getcomposer.org/installer | php
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN mv composer.phar /usr/local/bin/composer
+RUN chown -R www-data:www-data /var/www/html \
+    && a2enmod rewrite
 
-#RUN composer global require laravel/installer
+RUN service apache2 start
 
-RUN export PATH="$PATH:$HOME/.composer/vendor/bin"
+EXPOSE 80
