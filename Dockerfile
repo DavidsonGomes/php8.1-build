@@ -148,6 +148,8 @@ RUN apt-get install supervisor -y
 
 COPY supervisor/horizon.conf /etc/supervisor/conf.d/horizon.conf
 
+RUN service supervisor enable
+
 RUN service supervisor start
 
 RUN service apache2 restart
