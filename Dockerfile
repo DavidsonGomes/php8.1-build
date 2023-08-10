@@ -144,4 +144,12 @@ RUN chown -R www-data:www-data /var/www/html \
 
 RUN service apache2 start
 
+RUN apt-get install supervisor -y
+
+COPY supervisor/horizon.conf /etc/supervisor/conf.d/horizon.conf
+
+RUN service supervisor start
+
+RUN service apache2 restart
+
 EXPOSE 80
